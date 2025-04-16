@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Map</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 class="title">Drop Map</h1>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -1
+    });
+
+    const bounds = [[0,0], [1000,1000]];
+    const image = L.imageOverlay('images/map.jpg', bounds).addTo(map);
+    map.fitBounds(bounds);
+
+    const markers = [
+      {
+        id: 1,
+        name: "Treasure Room",
+        coords: [300, 500],
+        price: "$10"
+      },
+      {
+        id: 2,
+        name: "Hidden Passage",
+        coords: [700, 200],
+        price: "$5"
+      }
+    ];
+
+    markers.forEach(marker => {
+      const popupContent = `
+        <b>${marker.name}</b><br>
+        <button onclick="goToReview(${marker.id})">Review</button>
+        <button onclick="goToPurchase(${marker.id})">Purchase</button>
+      `;
+      L.marker(marker.coords).addTo(map)
+        .bindPopup(popupContent);
+    });
+
+    function goToReview(id) {
+      window.location.href = `reviews.html?marker=${id}`;
+    }
+
+    function goToPurchase(id) {
+      window.location.href = `purchase.html?marker=${id}`;
+    }
+  </script>
+</body>
+</html>
