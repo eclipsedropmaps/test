@@ -1,2 +1,0 @@
-<!-- reviews.html -->
-<h1>Reviews for Marker ID: <script>document.write(new URLSearchParams(window.location.search).get("marker"))</script></h1>
